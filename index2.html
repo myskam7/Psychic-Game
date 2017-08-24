@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<title>Assignment #5: Number Guessing Game</title>
+</head>
+<body>
+<h1>Lets Play A Number Guessing Game!!!</h1>
+<form id="Numbers">
+    <input type="text" id="myNumber" placeholder="Please Enter a Whole Number (1-999)">
+    <input type="submit" value="Start Guessing!">
+</form>
+<div id="output">
+</div>
+<script>
+
+var turns = 10;
+var hint = "Guess a whole number between 1 and 999";
+var button = document.getElementById("guessNumber");
+
+Numbers.onsubmit = checkInput;
+
+function checkInput() {	
+
+var input = document.getElementById('myNumber').value;
+
+input = parseInt(input);
+
+ if((input <  1) || (input > 999) || (isNaN(input))) { 
+ alert('Enter a whole number between 1 & 999');
+ } else {
+  guessNumber();
+}
+}
+function guessNumber() {
+
+var input = document.getElementById('myNumber').value;
+
+    document.getElementById("Numbers").style.display = "none";
+
+	document.getElementById('output').innerHTML = "<ol id='guesses'>";
+
+		do {
+		//prompt the other user for a guess
+		var guess = prompt(hint +' You have ' + turns + ' guesses left.');
+		//ensure they entered something
+		if (!guess)
+		break;
+		//convert it to a number
+		//guess = parseInt(guess);
+		guess = Number(guess);
+		
+		  if (guess == input) {
+			document.getElementById('output').innerHTML = '<p><img src="images/winner.png"></p><h2 id="winner">You Won!!!</h2>';
+			turns = 0;
+		  } else {
+			hint = 'Nope.';
+			if (guess < input) 
+				document.getElementById('guesses').innerHTML += '<li>Your Number: <b>'+guess+'</b> is too small!</li>';
+			if (guess > input) 
+				document.getElementById('guesses').innerHTML += "<li>Your Number: <b>"+guess+"</b> is too big!</li>";
+			turns--;
+		  }
+		} while (turns > 0) 
+	output.innerHTML += "</ol>";
+	if (turns =  0) document.getElementById('output').innerHTML = '<p><img src="images/loser.png"></p><h2 id="loser">The number was <span>'+input+'</span></h2>';
+}
+</script>
